@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, Image, TouchableOpacity } from "react-native";
 function ListComponent(props) {
   return (
     <View style={[styles.container, props.style]}>
-      <TouchableOpacity>
+      <>
       <View style={styles.cardBody}>
         <View style={styles.bodyContent}>
           <Text style={styles.titleStyle}>{props.obj.title}</Text>
@@ -15,7 +15,7 @@ function ListComponent(props) {
           style={styles.cardItemImagePlace}
         ></Image>
       </View>
-      </TouchableOpacity>
+      </>
     </View>
   );
 }

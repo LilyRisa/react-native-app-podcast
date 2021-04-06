@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import { StyleSheet, View, TouchableOpacity, Dimensions } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Dimensions, Pressable } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import HeaderComponent from "../components/HeaderComponent";
 import ListComponent from "../components/ListComponent";
+import { createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 const { width: viewportWidth, height: viewportHeight } = Dimensions.get('window');
-function Untitled(props) {
+function Untitled({ navigation }) {
   const [sound, setSound] = React.useState([]);
   const [more, setMore] = React.useState(0);
  
@@ -19,7 +21,6 @@ function Untitled(props) {
     .then(response => {
       
       setSound(response);
-      console.log(sound);
     })
   .catch(err => console.log(err));
 // LoadData()
@@ -28,13 +29,13 @@ function Untitled(props) {
 
   return (
     <View style={styles.container}>
-      <View style={styles.headerComponentStack}>
+      {/* <View style={styles.headerComponentStack}>
         <HeaderComponent style={styles.headerComponent}></HeaderComponent>
-      </View>
+      </View> */}
       <View style={styles.listComponentStack}>
         <ScrollView>
           { sound.map((v) => {
-              return <ListComponent key={v.id} obj={v}></ListComponent>
+              return <TouchableOpacity key={v.id} onPress={()=> navigation.navigate('Episode', {...v})}><ListComponent obj={v}></ListComponent></TouchableOpacity>
           }) }
         </ScrollView>
         
