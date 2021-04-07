@@ -84,7 +84,12 @@ export default class PlayerMediaTest extends React.Component {
       let { playbackInstance, currentIndex } = this.state
       if (playbackInstance) {
         await playbackInstance.unloadAsync()
-        currentIndex < this.state.listAudio.length - 1 ? (currentIndex -= 1) : (currentIndex = 0)
+        if(currentIndex > 0){
+          currentIndex < this.state.listAudio.length - 1 ? (currentIndex -= 1) : (currentIndex = 0)
+        }else{
+          currentIndex = this.state.listAudio.length - 1
+        }
+        
         this.setState({
           currentIndex
         })
@@ -96,7 +101,7 @@ export default class PlayerMediaTest extends React.Component {
       let { playbackInstance, currentIndex } = this.state
       if (playbackInstance) {
         await playbackInstance.unloadAsync()
-        console.log('unload')
+        
         currentIndex < this.state.listAudio.length - 1 ? (currentIndex += 1) : (currentIndex = 0)
         this.setState({
           currentIndex
