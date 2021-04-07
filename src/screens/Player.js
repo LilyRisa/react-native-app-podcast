@@ -14,27 +14,30 @@ function Player({navigation}) {
 
 
   async function playSound() {
-    Audio.setAudioModeAsync({
-      allowsRecordingIOS: false,
-      staysActiveInBackground: true,
-      interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DUCK_OTHERS,
-      playsInSilentModeIOS: true,
-      shouldDuckAndroid: true,
-      interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
-      playThroughEarpieceAndroid: false
-   });
-    console.log('play');
-    const { sound } = await Audio.Sound.createAsync(
-       {uri: navigation.getParam('path_audio')},
-       { 
-         shouldPlay: true,
-         isLooping: false,
-       }
-    );
-    setSound(sound);
+    
 
-    console.log('Playing Sound');
+    
       if(isLoad){
+        console.log('Playing Sound');
+        Audio.setAudioModeAsync({
+          allowsRecordingIOS: false,
+          staysActiveInBackground: true,
+          interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DUCK_OTHERS,
+          playsInSilentModeIOS: true,
+          shouldDuckAndroid: true,
+          interruptionModeAndroid: Audio.INTERRUPTION_MODE_ANDROID_DUCK_OTHERS,
+          playThroughEarpieceAndroid: false
+       });
+        console.log('play');
+        const { sound } = await Audio.Sound.createAsync(
+           {uri: navigation.getParam('path_audio')},
+           { 
+             shouldPlay: true,
+             isLooping: false,
+           }
+        );
+        setSound(sound);
+
         await sound.playAsync();
         setIsLoad(false);
         setStatus(true);
@@ -45,7 +48,7 @@ function Player({navigation}) {
           console.log('pasuse');
           setStatus(false);
         } else {
-          await sound.playAsync();
+          await sound.replayAsync();
           console.log('replaying');
           setStatus(true);
         }
@@ -58,7 +61,8 @@ function Player({navigation}) {
     return sound
       ? () => {
           console.log('Unloading Sound');
-          sound.unloadAsync(); }
+          // sound.pauseAsync(); 
+        }
       : undefined;
   }, [sound]);
 

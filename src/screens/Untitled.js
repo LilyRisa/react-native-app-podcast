@@ -29,13 +29,10 @@ function Untitled({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* <View style={styles.headerComponentStack}>
-        <HeaderComponent style={styles.headerComponent}></HeaderComponent>
-      </View> */}
       <View style={styles.listComponentStack}>
         <ScrollView>
-          { sound.map((v) => {
-              return <TouchableOpacity key={v.id} onPress={()=> navigation.navigate('Episode', {...v})}><ListComponent obj={v}></ListComponent></TouchableOpacity>
+          { sound.map((v,i) => {
+              return <TouchableOpacity key={v.id} onPress={()=> navigation.navigate('Music', {item: sound, index: i})}><ListComponent obj={v}></ListComponent></TouchableOpacity>
           }) }
         </ScrollView>
         
